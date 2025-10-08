@@ -1,0 +1,52 @@
+{% extends "users/base.html" %}
+{% block title %}Employees{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Employee Details</h2>
+    <div>
+      Logged in as {{ user.username }} |
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </div>
+
+  <table class="table table-bordered mt-3">
+    <thead class="table-light">
+      <tr>
+        <th>Emp ID</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Edit</th>
+        <th>Delete</th>  
+      </tr>
+    </thead>
+    <tbody>
+      {% for emp in employees %}
+      <tr>
+        <td>{{ emp.employee_id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.mobile }}</td>
+        <td>{{ emp.address }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.gender }}</td>
+        <td>
+          {% if emp == user or user.is_staff %}
+            <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_employee' emp.id %}">Edit</a>
+          {% else %}
+            <button class="btn btn-sm btn-outline-secondary" disabled>Edit</button>
+          {% endif %}
+        </td>
+        <td>
+          {% if emp == user or user.is_staff %}
+            <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_employee' emp.id %}">Delete</a>
+          {% else %}
+            <button class="btn btn-sm btn-outline-secondary" disabled>Delete</button>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

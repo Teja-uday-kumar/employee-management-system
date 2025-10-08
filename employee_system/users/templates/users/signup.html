@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 90vh; background-color: #f5f7fa;">
+    <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 12px;">
+      <h2 class="mb-4 text-center text-primary">Create Account</h2>
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label fw-semibold">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="text-danger small mt-1">
+                {{ field.errors|striptags }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button class="btn btn-primary w-100 py-2" type="submit" style="font-weight: 600; border-radius: 8px;">
+          Signup
+        </button>
+      </form>
+
+      <p class="mt-3 text-center">
+        Already registered? <a href="{% url 'login' %}" class="text-decoration-none fw-semibold">Login here</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}
