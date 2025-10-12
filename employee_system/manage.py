@@ -20,7 +20,8 @@ def main():
 
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'employee_system.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'employee_system.employee_system.settings')
+
 
 
 if __name__ == '__main__':
